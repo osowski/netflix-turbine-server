@@ -1,0 +1,35 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: https://servicediscovery.eu-gb.bluemix.net/api/eureka/${service.registry.auth.token}/v2/
+  instance:
+    hostname: ${vcap.application.uris[0]:localhost}
+    nonSecurePort: 80
+
+info:
+  component: Turbine Server
+
+spring:
+  application:
+     name: turbine-server
+
+server:
+  port: 8989
+
+#management:
+#  port: 8990
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: INFO
+    hello: DEBUG
+
+---
+
+spring:
+  profiles: docker
+eureka:
+  instance:
+    hostname: ${external.ics.ipAddress}
+    nonSecurePort: ${server.port}
